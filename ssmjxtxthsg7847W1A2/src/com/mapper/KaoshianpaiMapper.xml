@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.KaoshianpaiMapper">
+  <resultMap id="BaseResultMap" type="com.entity.Kaoshianpai">
+    <id column="id" jdbcType="INTEGER" property="id" />
+	<result column="changci" jdbcType="VARCHAR" property="changci" />    <result column="kechengmingcheng" jdbcType="VARCHAR" property="kechengmingcheng" />    <result column="jiaoshihao" jdbcType="VARCHAR" property="jiaoshihao" />    <result column="kaoshishijian" jdbcType="VARCHAR" property="kaoshishijian" />    <result column="kaoshishiduan" jdbcType="VARCHAR" property="kaoshishiduan" />    <result column="shuoming" jdbcType="VARCHAR" property="shuoming" />    <result column="faburen" jdbcType="VARCHAR" property="faburen" />    
+    <result column="addtime" jdbcType="VARCHAR" property="addtime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, changci,kechengmingcheng,jiaoshihao,kaoshishijian,kaoshishiduan,shuoming,faburen, addtime
+  </sql>
+  <select id="quchongKaoshianpai"  parameterType="java.util.Map" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from kaoshianpai 
+    where faburen = #{faburen,jdbcType=VARCHAR} limit 0,1
+  </select>
+ <select id="getCount"   resultType="int" parameterType="java.util.Map" >
+    select  count(*) from kaoshianpai  where 1=1
+    <if test="changci!=null">and changci like  concat('%',#{changci,jdbcType=VARCHAR},'%')</if>     <if test="kechengmingcheng!=null">and kechengmingcheng like  concat('%',#{kechengmingcheng,jdbcType=VARCHAR},'%')</if>     <if test="jiaoshihao!=null">and jiaoshihao like  concat('%',#{jiaoshihao,jdbcType=VARCHAR},'%')</if>     <if test="kaoshishijian!=null">and kaoshishijian like  concat('%',#{kaoshishijian,jdbcType=VARCHAR},'%')</if>     <if test="kaoshishiduan!=null">and kaoshishiduan like  concat('%',#{kaoshishiduan,jdbcType=VARCHAR},'%')</if>     <if test="shuoming!=null">and shuoming like  concat('%',#{shuoming,jdbcType=VARCHAR},'%')</if>     <if test="faburen!=null">and faburen like  concat('%',#{faburen,jdbcType=VARCHAR},'%')</if>     
+  </select> 
+  <select id="getAll"   resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select   <include refid="Base_Column_List" /> from kaoshianpai  where 1=1
+    <if test="faburen!=null">
+    and faburen =#{faburen}
+    </if>
+  </select>
+  
+  <select id="getsykaoshianpai1"   resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select   <include refid="Base_Column_List" /> from kaoshianpai  where 1=1
+    limit 0,5
+  </select>
+  <select id="getsykaoshianpai2"   resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select   <include refid="Base_Column_List" /> from kaoshianpai  where 1=1
+    limit 0,5
+  </select>
+  <select id="getsykaoshianpai3"   resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select   <include refid="Base_Column_List" /> from kaoshianpai  where 1=1
+    limit 0,5
+  </select>
+  
+   <select id="getByPage" parameterType="java.util.Map" resultMap="BaseResultMap">
+     select  <include refid="Base_Column_List" /> 
+     from kaoshianpai where 1=1 
+     <if test="changci!=null">and changci like  concat('%',#{changci,jdbcType=VARCHAR},'%')</if>     <if test="kechengmingcheng!=null">and kechengmingcheng like  concat('%',#{kechengmingcheng,jdbcType=VARCHAR},'%')</if>     <if test="jiaoshihao!=null">and jiaoshihao like  concat('%',#{jiaoshihao,jdbcType=VARCHAR},'%')</if>     <if test="kaoshishijian!=null">and kaoshishijian like  concat('%',#{kaoshishijian,jdbcType=VARCHAR},'%')</if>     <if test="kaoshishiduan!=null">and kaoshishiduan like  concat('%',#{kaoshishiduan,jdbcType=VARCHAR},'%')</if>     <if test="shuoming!=null">and shuoming like  concat('%',#{shuoming,jdbcType=VARCHAR},'%')</if>     <if test="faburen!=null">and faburen like  concat('%',#{faburen,jdbcType=VARCHAR},'%')</if>     
+	 order by id desc
+     <if test="pageno!=null and pageSize!=null">
+     limit #{pageno},#{pageSize}
+     </if>
+     </select>
+	 
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from kaoshianpai
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from kaoshianpai
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.entity.Kaoshianpai">
+    insert into kaoshianpai (id, changci,kechengmingcheng,jiaoshihao,kaoshishijian,kaoshishiduan,shuoming,faburen, addtime)
+    values (#{id,jdbcType=INTEGER}, #{changci,jdbcType=VARCHAR},#{kechengmingcheng,jdbcType=VARCHAR},#{jiaoshihao,jdbcType=VARCHAR},#{kaoshishijian,jdbcType=VARCHAR},#{kaoshishiduan,jdbcType=VARCHAR},#{shuoming,jdbcType=VARCHAR},#{faburen,jdbcType=VARCHAR}, #{addtime,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.entity.Kaoshianpai">
+    insert into kaoshianpai
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="changci != null"> changci, </if>      <if test="kechengmingcheng != null"> kechengmingcheng, </if>      <if test="jiaoshihao != null"> jiaoshihao, </if>      <if test="kaoshishijian != null"> kaoshishijian, </if>      <if test="kaoshishiduan != null"> kaoshishiduan, </if>      <if test="shuoming != null"> shuoming, </if>      <if test="faburen != null"> faburen, </if>      
+      <if test="addtime != null">
+        addtime,
+      </if>
+      
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="changci != null"> #{changci,jdbcType=VARCHAR},</if>      <if test="kechengmingcheng != null"> #{kechengmingcheng,jdbcType=VARCHAR},</if>      <if test="jiaoshihao != null"> #{jiaoshihao,jdbcType=VARCHAR},</if>      <if test="kaoshishijian != null"> #{kaoshishijian,jdbcType=VARCHAR},</if>      <if test="kaoshishiduan != null"> #{kaoshishiduan,jdbcType=VARCHAR},</if>      <if test="shuoming != null"> #{shuoming,jdbcType=VARCHAR},</if>      <if test="faburen != null"> #{faburen,jdbcType=VARCHAR},</if>      
+      <if test="addtime != null">
+        #{addtime,jdbcType=VARCHAR},
+      </if>
+      
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.entity.Kaoshianpai">
+    update kaoshianpai
+    <set>
+	  <if test="changci != null"> changci = #{changci,jdbcType=VARCHAR},</if>      <if test="kechengmingcheng != null"> kechengmingcheng = #{kechengmingcheng,jdbcType=VARCHAR},</if>      <if test="jiaoshihao != null"> jiaoshihao = #{jiaoshihao,jdbcType=VARCHAR},</if>      <if test="kaoshishijian != null"> kaoshishijian = #{kaoshishijian,jdbcType=VARCHAR},</if>      <if test="kaoshishiduan != null"> kaoshishiduan = #{kaoshishiduan,jdbcType=VARCHAR},</if>      <if test="shuoming != null"> shuoming = #{shuoming,jdbcType=VARCHAR},</if>      <if test="faburen != null"> faburen = #{faburen,jdbcType=VARCHAR},</if>      
+      <if test="addtime != null">
+        addtime = #{addtime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  
+  
+  <update id="updateByPrimaryKey" parameterType="com.entity.Kaoshianpai">
+    update kaoshianpai
+    set changci = #{changci,jdbcType=VARCHAR},kechengmingcheng = #{kechengmingcheng,jdbcType=VARCHAR},jiaoshihao = #{jiaoshihao,jdbcType=VARCHAR},kaoshishijian = #{kaoshishijian,jdbcType=VARCHAR},kaoshishiduan = #{kaoshishiduan,jdbcType=VARCHAR},shuoming = #{shuoming,jdbcType=VARCHAR},faburen = #{faburen,jdbcType=VARCHAR},  addtime = #{addtime,jdbcType=VARCHAR} where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

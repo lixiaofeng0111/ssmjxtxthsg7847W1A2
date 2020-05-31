@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.HuidaMapper">
+  <resultMap id="BaseResultMap" type="com.entity.Huida">
+    <id column="id" jdbcType="INTEGER" property="id" />
+	<result column="bianhao" jdbcType="VARCHAR" property="bianhao" />    <result column="wenti1" jdbcType="VARCHAR" property="wenti1" />    <result column="wenti2" jdbcType="VARCHAR" property="wenti2" />    <result column="wenti3" jdbcType="VARCHAR" property="wenti3" />    <result column="wenti4" jdbcType="VARCHAR" property="wenti4" />    <result column="huida1" jdbcType="VARCHAR" property="huida1" />    <result column="huida2" jdbcType="VARCHAR" property="huida2" />    <result column="huida3" jdbcType="VARCHAR" property="huida3" />    <result column="huida4" jdbcType="VARCHAR" property="huida4" />    <result column="yonghuming" jdbcType="VARCHAR" property="yonghuming" />    <result column="xingming" jdbcType="VARCHAR" property="xingming" />    
+    <result column="addtime" jdbcType="VARCHAR" property="addtime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, bianhao,wenti1,wenti2,wenti3,wenti4,huida1,huida2,huida3,huida4,yonghuming,xingming, addtime
+  </sql>
+  <select id="quchongHuida"  parameterType="java.util.Map" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from huida 
+    where yonghuming = #{yonghuming,jdbcType=VARCHAR} limit 0,1
+  </select>
+ <select id="getCount"   resultType="int" parameterType="java.util.Map" >
+    select  count(*) from huida  where 1=1
+    <if test="bianhao!=null">and bianhao like  concat('%',#{bianhao,jdbcType=VARCHAR},'%')</if>     <if test="wenti1!=null">and wenti1 like  concat('%',#{wenti1,jdbcType=VARCHAR},'%')</if>     <if test="wenti2!=null">and wenti2 like  concat('%',#{wenti2,jdbcType=VARCHAR},'%')</if>     <if test="wenti3!=null">and wenti3 like  concat('%',#{wenti3,jdbcType=VARCHAR},'%')</if>     <if test="wenti4!=null">and wenti4 like  concat('%',#{wenti4,jdbcType=VARCHAR},'%')</if>     <if test="huida1!=null">and huida1 like  concat('%',#{huida1,jdbcType=VARCHAR},'%')</if>     <if test="huida2!=null">and huida2 like  concat('%',#{huida2,jdbcType=VARCHAR},'%')</if>     <if test="huida3!=null">and huida3 like  concat('%',#{huida3,jdbcType=VARCHAR},'%')</if>     <if test="huida4!=null">and huida4 like  concat('%',#{huida4,jdbcType=VARCHAR},'%')</if>     <if test="yonghuming!=null">and yonghuming like  concat('%',#{yonghuming,jdbcType=VARCHAR},'%')</if>     <if test="xingming!=null">and xingming like  concat('%',#{xingming,jdbcType=VARCHAR},'%')</if>     
+  </select> 
+  <select id="getAll"   resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select   <include refid="Base_Column_List" /> from huida  where 1=1
+    <if test="yonghuming!=null">
+    and yonghuming =#{yonghuming}
+    </if>
+  </select>
+  
+  <select id="getsyhuida1"   resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select   <include refid="Base_Column_List" /> from huida  where 1=1
+    limit 0,5
+  </select>
+  <select id="getsyhuida2"   resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select   <include refid="Base_Column_List" /> from huida  where 1=1
+    limit 0,5
+  </select>
+  <select id="getsyhuida3"   resultMap="BaseResultMap" parameterType="java.util.Map" >
+    select   <include refid="Base_Column_List" /> from huida  where 1=1
+    limit 0,5
+  </select>
+  
+   <select id="getByPage" parameterType="java.util.Map" resultMap="BaseResultMap">
+     select  <include refid="Base_Column_List" /> 
+     from huida where 1=1 
+     <if test="bianhao!=null">and bianhao like  concat('%',#{bianhao,jdbcType=VARCHAR},'%')</if>     <if test="wenti1!=null">and wenti1 like  concat('%',#{wenti1,jdbcType=VARCHAR},'%')</if>     <if test="wenti2!=null">and wenti2 like  concat('%',#{wenti2,jdbcType=VARCHAR},'%')</if>     <if test="wenti3!=null">and wenti3 like  concat('%',#{wenti3,jdbcType=VARCHAR},'%')</if>     <if test="wenti4!=null">and wenti4 like  concat('%',#{wenti4,jdbcType=VARCHAR},'%')</if>     <if test="huida1!=null">and huida1 like  concat('%',#{huida1,jdbcType=VARCHAR},'%')</if>     <if test="huida2!=null">and huida2 like  concat('%',#{huida2,jdbcType=VARCHAR},'%')</if>     <if test="huida3!=null">and huida3 like  concat('%',#{huida3,jdbcType=VARCHAR},'%')</if>     <if test="huida4!=null">and huida4 like  concat('%',#{huida4,jdbcType=VARCHAR},'%')</if>     <if test="yonghuming!=null">and yonghuming like  concat('%',#{yonghuming,jdbcType=VARCHAR},'%')</if>     <if test="xingming!=null">and xingming like  concat('%',#{xingming,jdbcType=VARCHAR},'%')</if>     
+	 order by id desc
+     <if test="pageno!=null and pageSize!=null">
+     limit #{pageno},#{pageSize}
+     </if>
+     </select>
+	 
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from huida
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from huida
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.entity.Huida">
+    insert into huida (id, bianhao,wenti1,wenti2,wenti3,wenti4,huida1,huida2,huida3,huida4,yonghuming,xingming, addtime)
+    values (#{id,jdbcType=INTEGER}, #{bianhao,jdbcType=VARCHAR},#{wenti1,jdbcType=VARCHAR},#{wenti2,jdbcType=VARCHAR},#{wenti3,jdbcType=VARCHAR},#{wenti4,jdbcType=VARCHAR},#{huida1,jdbcType=VARCHAR},#{huida2,jdbcType=VARCHAR},#{huida3,jdbcType=VARCHAR},#{huida4,jdbcType=VARCHAR},#{yonghuming,jdbcType=VARCHAR},#{xingming,jdbcType=VARCHAR}, #{addtime,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.entity.Huida">
+    insert into huida
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="bianhao != null"> bianhao, </if>      <if test="wenti1 != null"> wenti1, </if>      <if test="wenti2 != null"> wenti2, </if>      <if test="wenti3 != null"> wenti3, </if>      <if test="wenti4 != null"> wenti4, </if>      <if test="huida1 != null"> huida1, </if>      <if test="huida2 != null"> huida2, </if>      <if test="huida3 != null"> huida3, </if>      <if test="huida4 != null"> huida4, </if>      <if test="yonghuming != null"> yonghuming, </if>      <if test="xingming != null"> xingming, </if>      
+      <if test="addtime != null">
+        addtime,
+      </if>
+      
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="bianhao != null"> #{bianhao,jdbcType=VARCHAR},</if>      <if test="wenti1 != null"> #{wenti1,jdbcType=VARCHAR},</if>      <if test="wenti2 != null"> #{wenti2,jdbcType=VARCHAR},</if>      <if test="wenti3 != null"> #{wenti3,jdbcType=VARCHAR},</if>      <if test="wenti4 != null"> #{wenti4,jdbcType=VARCHAR},</if>      <if test="huida1 != null"> #{huida1,jdbcType=VARCHAR},</if>      <if test="huida2 != null"> #{huida2,jdbcType=VARCHAR},</if>      <if test="huida3 != null"> #{huida3,jdbcType=VARCHAR},</if>      <if test="huida4 != null"> #{huida4,jdbcType=VARCHAR},</if>      <if test="yonghuming != null"> #{yonghuming,jdbcType=VARCHAR},</if>      <if test="xingming != null"> #{xingming,jdbcType=VARCHAR},</if>      
+      <if test="addtime != null">
+        #{addtime,jdbcType=VARCHAR},
+      </if>
+      
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.entity.Huida">
+    update huida
+    <set>
+	  <if test="bianhao != null"> bianhao = #{bianhao,jdbcType=VARCHAR},</if>      <if test="wenti1 != null"> wenti1 = #{wenti1,jdbcType=VARCHAR},</if>      <if test="wenti2 != null"> wenti2 = #{wenti2,jdbcType=VARCHAR},</if>      <if test="wenti3 != null"> wenti3 = #{wenti3,jdbcType=VARCHAR},</if>      <if test="wenti4 != null"> wenti4 = #{wenti4,jdbcType=VARCHAR},</if>      <if test="huida1 != null"> huida1 = #{huida1,jdbcType=VARCHAR},</if>      <if test="huida2 != null"> huida2 = #{huida2,jdbcType=VARCHAR},</if>      <if test="huida3 != null"> huida3 = #{huida3,jdbcType=VARCHAR},</if>      <if test="huida4 != null"> huida4 = #{huida4,jdbcType=VARCHAR},</if>      <if test="yonghuming != null"> yonghuming = #{yonghuming,jdbcType=VARCHAR},</if>      <if test="xingming != null"> xingming = #{xingming,jdbcType=VARCHAR},</if>      
+      <if test="addtime != null">
+        addtime = #{addtime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  
+  
+  <update id="updateByPrimaryKey" parameterType="com.entity.Huida">
+    update huida
+    set bianhao = #{bianhao,jdbcType=VARCHAR},wenti1 = #{wenti1,jdbcType=VARCHAR},wenti2 = #{wenti2,jdbcType=VARCHAR},wenti3 = #{wenti3,jdbcType=VARCHAR},wenti4 = #{wenti4,jdbcType=VARCHAR},huida1 = #{huida1,jdbcType=VARCHAR},huida2 = #{huida2,jdbcType=VARCHAR},huida3 = #{huida3,jdbcType=VARCHAR},huida4 = #{huida4,jdbcType=VARCHAR},yonghuming = #{yonghuming,jdbcType=VARCHAR},xingming = #{xingming,jdbcType=VARCHAR},  addtime = #{addtime,jdbcType=VARCHAR} where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
